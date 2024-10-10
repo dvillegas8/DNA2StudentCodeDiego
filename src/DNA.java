@@ -15,8 +15,34 @@ public class DNA {
     /**
      * TODO: Complete this function, STRCount(), to return longest consecutive run of STR in sequence.
      */
-    public static int STRCount(String sequence, String STR) {
-
-        return 0;
+    public static int STRCount(String sequence, String STR)
+    {
+        // Copy of sequence so we can actively chop it
+        String copy = sequence;
+        int i = 0;
+        int maxCount = 0;
+        int counter = 0;
+        String check = "";
+        i = sequence.indexOf(STR);
+        // Continue iterating until there is no more STR in copy
+        while(copy.contains(STR)){
+            // Get the next STR length word
+            check = copy.substring(i, i + STR.length());
+            // Continue iterating until we find there is no more STR to count
+            while(STR.equals(check)){
+                counter++;
+                i += STR.length();
+                check = copy.substring(i, i + STR.length());
+            }
+            // Compare the max amount fo STRs we found vs how many STR we just counted
+            if(maxCount < counter){
+                maxCount = counter;
+            }
+            counter = 0;
+            // Chop copy
+            copy = copy.substring(i);
+            i = copy.indexOf(STR);
+        }
+        return maxCount;
     }
 }
