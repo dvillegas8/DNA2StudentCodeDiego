@@ -15,8 +15,24 @@ public class DNA {
     /**
      * TODO: Complete this function, STRCount(), to return longest consecutive run of STR in sequence.
      */
-    public static int STRCount(String sequence, String STR)
+    public int STRCount(String sequence, String STR)
     {
+        String copy = sequence;
+        int maxCount = 0;
+        int counter = 0;
+        // Calculate the value of STR
+        int aValue = 1;
+        int cValue = 2;
+        int gValue = 3;
+        int tValue = 4;
+        int i = copy.indexOf(STR);
+        int totalOfSTR = getValue(STR);
+        String check = copy.substring(i, i + STR.length());
+        int checkValue = 0;
+        while(copy.contains(STR)){
+
+        }
+        /*
         // Copy of sequence so we can actively chop it
         String copy = sequence;
         int i = 0;
@@ -44,5 +60,30 @@ public class DNA {
             i = copy.indexOf(STR);
         }
         return maxCount;
+
+         */
+        return 0;
+    }
+    public int getValue(String test){
+        int total = 0;
+        int aValue = 1;
+        int cValue = 2;
+        int gValue = 3;
+        int tValue = 4;
+        int totalOfSTR = 0;
+        for(int i = 0; i < test.length(); i++) {
+            if (test.charAt(i) == 'A') {
+                totalOfSTR += Math.pow(aValue, i + 1);
+            }
+            if (test.charAt(i) == 'C') {
+                totalOfSTR += Math.pow(cValue, i + 1);
+            }
+            if (test.charAt(i) == 'G') {
+                totalOfSTR += Math.pow(gValue, i + 1);
+            } else {
+                totalOfSTR += Math.pow(tValue, i + 1);
+            }
+        }
+        return total;
     }
 }
