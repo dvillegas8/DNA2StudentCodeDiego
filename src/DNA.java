@@ -30,19 +30,19 @@ public class DNA {
         String check = copy.substring(i, i + STR.length());
         int checkValue = getValue(check);
         while(copy.contains(STR)){
-            if(totalSTR == checkValue){
-                counter++;
-                i += STR.length();
-                // Out of bounds error
-                check = copy.substring(i, i + STR.length());
-                checkValue = getValue(check);
-            }
-            else{
+            if(!(totalSTR == checkValue)){
                 if(maxCount < counter){
                     maxCount = counter;
                     counter = 0;
                 }
             }
+            else{
+                counter++;
+            }
+            i += STR.length();
+            // Out of bounds error
+            check = copy.substring(i, i + STR.length());
+            checkValue = getValue(check);
         }
         /*
         // Copy of sequence so we can actively chop it
