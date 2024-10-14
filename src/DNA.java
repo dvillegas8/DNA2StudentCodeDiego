@@ -26,11 +26,23 @@ public class DNA {
         int gValue = 3;
         int tValue = 4;
         int i = copy.indexOf(STR);
-        int totalOfSTR = getValue(STR);
+        int totalSTR = getValue(STR);
         String check = copy.substring(i, i + STR.length());
-        int checkValue = 0;
+        int checkValue = getValue(check);
         while(copy.contains(STR)){
-
+            if(totalSTR == checkValue){
+                counter++;
+                i += STR.length();
+                // Out of bounds error
+                check = copy.substring(i, i + STR.length());
+                checkValue = getValue(check);
+            }
+            else{
+                if(maxCount < counter){
+                    maxCount = counter;
+                    counter = 0;
+                }
+            }
         }
         /*
         // Copy of sequence so we can actively chop it
@@ -62,7 +74,7 @@ public class DNA {
         return maxCount;
 
          */
-        return 0;
+        return maxCount;
     }
     public int getValue(String test){
         int total = 0;
@@ -75,12 +87,13 @@ public class DNA {
             if (test.charAt(i) == 'A') {
                 totalOfSTR += Math.pow(aValue, i + 1);
             }
-            if (test.charAt(i) == 'C') {
+            else if (test.charAt(i) == 'C') {
                 totalOfSTR += Math.pow(cValue, i + 1);
             }
-            if (test.charAt(i) == 'G') {
+            else if (test.charAt(i) == 'G') {
                 totalOfSTR += Math.pow(gValue, i + 1);
-            } else {
+            }
+            else {
                 totalOfSTR += Math.pow(tValue, i + 1);
             }
         }
