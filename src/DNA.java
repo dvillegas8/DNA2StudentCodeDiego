@@ -11,12 +11,45 @@
  */
 
 public class DNA {
-
+    // Our P value, which is a big prime number
+    final static long P = 104561;
+    // Base/radix is 4 since we only have 4 letters
+    final static int R = 4;
     /**
      * TODO: Complete this function, STRCount(), to return longest consecutive run of STR in sequence.
      */
     public int STRCount(String sequence, String STR)
     {
+        int maxCount = 0;
+        int counter = 0;
+        int m = STR.length();
+        // Hash STR
+        long STRHash = hash(STR, STR.length());
+        String check = sequence.substring(0, STR.length());
+        long sequenceHash = 0;
+        sequenceHash = hash(check, check.length());
+        int index = STR.length();
+        while(index < sequence.length()){
+            if(STRHash != sequenceHash){
+                // Remove the first term
+                sequenceHash = (long)(((sequenceHash + P) - check.charAt(0) * Math.pow(R, m - 1) % P) % P);
+                check += sequence.charAt(index);
+                index++;
+                check = check.substring(1);
+                // Add next term
+                sequenceHash = (sequenceHash * R) + check.charAt(m - 1) % P;
+                if(maxCount < counter){
+                    maxCount = counter;
+                    counter = 0;
+                }
+            }
+            else{
+                counter++;
+                index++;
+            }
+        }
+        return maxCount;
+        /*
         String copy = sequence;
         int maxCount = 0;
         int counter = 0;
@@ -44,7 +77,6 @@ public class DNA {
             check = copy.substring(i, i + STR.length());
             checkValue = getValue(check);
         }
-        /*
         // Copy of sequence so we can actively chop it
         String copy = sequence;
         int i = 0;
@@ -74,29 +106,12 @@ public class DNA {
         return maxCount;
 
          */
-        return maxCount;
     }
-    public int getValue(String test){
-        int total = 0;
-        int aValue = 1;
-        int cValue = 2;
-        int gValue = 3;
-        int tValue = 4;
-        int totalOfSTR = 0;
-        for(int i = 0; i < test.length(); i++) {
-            if (test.charAt(i) == 'A') {
-                totalOfSTR += Math.pow(aValue, i + 1);
-            }
-            else if (test.charAt(i) == 'C') {
-                totalOfSTR += Math.pow(cValue, i + 1);
-            }
-            else if (test.charAt(i) == 'G') {
-                totalOfSTR += Math.pow(gValue, i + 1);
-            }
-            else {
-                totalOfSTR += Math.pow(tValue, i + 1);
-            }
+    public long hash(String t, int m){
+        long h = 0;
+        for(int i = 0; i < m; i++){
+            h = (R * h + t.charAt(i)) % P;
         }
-        return total;
+        return h;
     }
 }
