@@ -8,6 +8,7 @@ Name: YOUR NAME HERE
 | October 14 | 6:40 - 7:05  |                                                                                                                                                Finished the new algorithm but the problem is that I am not getting an out of bounds error. |
 | October 18 | 9:20 - 9:55  |                                                                                                                                                                                                      Finished implementing Horner's method |
 | October 20 | 2:00 - 3:20  |                                                                                                             Finished implementing Rabin-Karp fingerprint search. However, I know that the way my code counts STR in the sequence is wrong. |
+| October 21 | 2:00 - 3:00  |                                                                                                                                                                                                                                            |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.

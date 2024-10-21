@@ -12,7 +12,7 @@
 
 public class DNA {
     // Our P value, which is a big prime number
-    final static long P = 104561;
+    final static long P = 77557187;
     // Base/radix is 4 since we only have 4 letters
     final static int R = 4;
     /**
@@ -25,88 +25,70 @@ public class DNA {
         int m = STR.length();
         // Hash STR
         long STRHash = hash(STR, STR.length());
+        long value = 0;
         String check = sequence.substring(0, STR.length());
         long sequenceHash = 0;
         sequenceHash = hash(check, check.length());
         int index = STR.length();
+        long RM = 1;
+        for(int i = 1; i <= m -1; i++){
+            RM = (R * RM) % P;
+        }
         while(index < sequence.length()){
             if(STRHash != sequenceHash){
+                /*
+                if(index == 782){
+                    // Remove the first term
+                    sequenceHash = (long)(((sequenceHash + P) - check.charAt(0) * Math.pow(R, m - 1) % P) % P);
+                    // Add next char to string
+                    check += sequence.charAt(index);
+                    index++;
+                    check = check.substring(1);
+                    // Add next term to has value
+                    sequenceHash = (sequenceHash * R) + check.charAt(m - 1) % P;
+                }
+
+                 */
+                if(index == 558){
+                    System.out.println("ok");
+                }
                 // Remove the first term
                 sequenceHash = (long)(((sequenceHash + P) - check.charAt(0) * Math.pow(R, m - 1) % P) % P);
+                // Add next char to string
                 check += sequence.charAt(index);
                 index++;
                 check = check.substring(1);
-                // Add next term
+                // Add next term to has value
                 sequenceHash = (sequenceHash * R) + check.charAt(m - 1) % P;
-                if(maxCount < counter){
-                    maxCount = counter;
-                    counter = 0;
+                /*
+                if(STR.equals(sequence.substring(index - STR.length(), index))){
+                    System.out.println("Yes");
+                    value = hash(sequence.substring(index - STR.length(), index), m);
                 }
-            }
-            else{
-                counter++;
-                index++;
-            }
-        }
-        return maxCount;
-        /*
-        String copy = sequence;
-        int maxCount = 0;
-        int counter = 0;
-        // Calculate the value of STR
-        int aValue = 1;
-        int cValue = 2;
-        int gValue = 3;
-        int tValue = 4;
-        int i = copy.indexOf(STR);
-        int totalSTR = getValue(STR);
-        String check = copy.substring(i, i + STR.length());
-        int checkValue = getValue(check);
-        while(copy.contains(STR)){
-            if(!(totalSTR == checkValue)){
-                if(maxCount < counter){
-                    maxCount = counter;
-                    counter = 0;
-                }
-            }
-            else{
-                counter++;
-            }
-            i += STR.length();
-            // Out of bounds error
-            check = copy.substring(i, i + STR.length());
-            checkValue = getValue(check);
-        }
-        // Copy of sequence so we can actively chop it
-        String copy = sequence;
-        int i = 0;
-        int maxCount = 0;
-        int counter = 0;
-        String check = "";
-        i = sequence.indexOf(STR);
-        // Continue iterating until there is no more STR in copy
-        while(copy.contains(STR)){
-            // Get the next STR length word
-            check = copy.substring(i, i + STR.length());
-            // Continue iterating until we find there is no more STR to count
-            while(STR.equals(check)){
-                counter++;
-                i += STR.length();
-                check = copy.substring(i, i + STR.length());
-            }
-            // Compare the max amount fo STRs we found vs how many STR we just counted
-            if(maxCount < counter){
-                maxCount = counter;
-            }
-            counter = 0;
-            // Chop copy
-            copy = copy.substring(i);
-            i = copy.indexOf(STR);
-        }
-        return maxCount;
 
-         */
+                 */
+            }
+            // once we find a match
+            else{
+                System.out.println("Match");
+                value = hash("ACTGG", 5);
+                // Continue looking for an STR sequence
+                while(STRHash == sequenceHash){
+                    counter++;
+                    // Grab the next STR length substring in sequence
+                    sequenceHash = hash(sequence.substring(index, index + m), m);
+                    index += m;
+                }
+                // Compare to see if the sequence of STR right now is greater than the previous sequence
+                if(maxCount < counter){
+                    maxCount = counter;
+                    counter = 0;
+                }
+            }
+        }
+        return maxCount;
     }
+    // Horner's Method
     public long hash(String t, int m){
         long h = 0;
         for(int i = 0; i < m; i++){
