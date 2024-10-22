@@ -12,7 +12,7 @@
 
 public class DNA {
     // Our P value, which is a big prime number
-    final static long P = 77557187;
+    final static long P = 28871271685163L;
     // Base/radix is 4 since we only have 4 letters
     final static int R = 4;
     /**
@@ -34,57 +34,18 @@ public class DNA {
         for(int i = 1; i <= m -1; i++){
             RM = (R * RM) % P;
         }
+        System.out.println(STR);
         while(index < sequence.length()){
-            if(STRHash != sequenceHash){
-                /*
-                if(index == 782){
-                    // Remove the first term
-                    sequenceHash = (long)(((sequenceHash + P) - check.charAt(0) * Math.pow(R, m - 1) % P) % P);
-                    // Add next char to string
-                    check += sequence.charAt(index);
-                    index++;
-                    check = check.substring(1);
-                    // Add next term to has value
-                    sequenceHash = (sequenceHash * R) + check.charAt(m - 1) % P;
-                }
-
-                 */
-                if(index == 558){
-                    System.out.println("ok");
-                }
-                // Remove the first term
-                sequenceHash = (long)(((sequenceHash + P) - check.charAt(0) * Math.pow(R, m - 1) % P) % P);
-                // Add next char to string
-                check += sequence.charAt(index);
-                index++;
-                check = check.substring(1);
-                // Add next term to has value
-                sequenceHash = (sequenceHash * R) + check.charAt(m - 1) % P;
-                /*
-                if(STR.equals(sequence.substring(index - STR.length(), index))){
-                    System.out.println("Yes");
-                    value = hash(sequence.substring(index - STR.length(), index), m);
-                }
-
-                 */
+            // Remove leading digit
+            sequenceHash = (sequenceHash + P - RM * sequence.charAt(index - m) % P) % P;
+            check = check.substring(1);
+            // add trailing digit
+            sequenceHash = (sequenceHash * R + sequence.charAt(index)) % P;
+            check += sequence.charAt(index);
+            if(STRHash == sequenceHash){
+                maxCount++;
             }
-            // once we find a match
-            else{
-                System.out.println("Match");
-                value = hash("ACTGG", 5);
-                // Continue looking for an STR sequence
-                while(STRHash == sequenceHash){
-                    counter++;
-                    // Grab the next STR length substring in sequence
-                    sequenceHash = hash(sequence.substring(index, index + m), m);
-                    index += m;
-                }
-                // Compare to see if the sequence of STR right now is greater than the previous sequence
-                if(maxCount < counter){
-                    maxCount = counter;
-                    counter = 0;
-                }
-            }
+            index++;
         }
         return maxCount;
     }
