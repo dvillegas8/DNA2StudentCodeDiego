@@ -10,6 +10,7 @@ Name: YOUR NAME HERE
 | October 20 | 2:00 - 3:20  |                                                                                                             Finished implementing Rabin-Karp fingerprint search. However, I know that the way my code counts STR in the sequence is wrong. |
 | October 21 | 2:00 - 3:00  |                                                                                                                                                                          Figured out that my algorithm has collisions. Trying to fix that. |
 | October 21 | 6:00 - 7:00  |                                                                                                                                               Trying to fix collisions, however I still couldn't figure out why there is still collisions. |
+| October 22 | 9:00 - 10:00 |                                                                                                                                                                              Finished implementing finger print. Finished the problem set. |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.
